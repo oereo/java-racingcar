@@ -1,7 +1,9 @@
 package repository;
 
 import domain.Car;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import repository.exception.NotDuplicateNameException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -9,7 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CarManagerTest {
 
-    private CarManager carManager = new CarManager();
+    private CarManager carManager;
+
+    @BeforeEach
+    void setup() {
+        carManager = new CarManager();
+    }
 
     @Test
     void Car_객체를_추가한다() {
@@ -38,7 +45,7 @@ class CarManagerTest {
         carManager.add(kouz95);
 
         //then
-        assertThatExceptionOfType(NotDuplicatedNameException.class)
-            .isThrownBy(carManager.add(pkalsh2));
+        assertThatExceptionOfType(NotDuplicateNameException.class)
+            .isThrownBy(() -> carManager.add(pkalsh2));
     }
 }
