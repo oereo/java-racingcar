@@ -1,9 +1,11 @@
 package domain;
 
+import domain.exception.NotBlankException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CarTest {
@@ -29,11 +31,18 @@ class CarTest {
         car.move();
         car.move();
         car.move();
-        
+
         //when
         String expected = car.toString();
 
         //then
         assertThat(expected).isEqualTo("name : ---");
+    }
+
+    @Test
+    void 빈문자열의_이름이_주어지면_NotBlankException을_던진다() {
+        //then
+        assertThatExceptionOfType(NotBlankException.class)
+                .isThrownBy(() -> new Car(""));
     }
 }
