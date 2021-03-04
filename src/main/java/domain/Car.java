@@ -9,7 +9,14 @@ public class Car {
     private int position = 0;
 
     public Car(String name) {
+        checkBlankName(name);
         this.name = name;
+    }
+
+    private void checkBlankName(String name) {
+        if (name.equals("")) {
+            throw new NotBlankException("빈 문자열 이름의 차를 생성할 수는 없습니다.");
+        }
     }
 
     public int getPosition() {
