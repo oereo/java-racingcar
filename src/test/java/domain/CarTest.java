@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CarTest {
 
     @Test
-    void moveTest() {
+    void move() {
         //given
         Car car = new Car("name");
         int prev = car.getPosition();
@@ -20,5 +20,20 @@ class CarTest {
 
         //then
         assertThat(current).isEqualTo(prev + 1);
+    }
+
+    @Test
+    void 차의_이름과_위치상황을_출력_포맷에_맞게_String으로_변환한다() {
+        //given
+        Car car = new Car("name");
+        car.move();
+        car.move();
+        car.move();
+        
+        //when
+        String expected = car.toString();
+
+        //then
+        assertThat(expected).isEqualTo("name : ---");
     }
 }
