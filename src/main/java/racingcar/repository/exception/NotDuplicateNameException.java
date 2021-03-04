@@ -1,4 +1,4 @@
-package repository.exception;
+package racingcar.repository.exception;
 
 public class NotDuplicateNameException extends RuntimeException {
     public NotDuplicateNameException(String message) {

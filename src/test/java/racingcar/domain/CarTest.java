@@ -1,12 +1,10 @@
-package domain;
+package racingcar.domain;
 
-import domain.exception.NotBlankException;
-import org.junit.jupiter.api.BeforeEach;
+import racingcar.domain.exception.NotBlankException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CarTest {
 

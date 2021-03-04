@@ -1,6 +1,6 @@
-package domain;
+package racingcar.domain;
 
-import domain.exception.NotBlankException;
+import racingcar.domain.exception.NotBlankException;
 
 import java.util.Objects;
 

@@ -1,13 +1,12 @@
-package repository;
+package racingcar.repository;
 
-import domain.Car;
+import racingcar.domain.Car;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import repository.exception.NotDuplicateNameException;
+import racingcar.repository.exception.NotDuplicateNameException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CarManagerTest {
 

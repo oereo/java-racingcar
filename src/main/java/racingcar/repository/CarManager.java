@@ -1,7 +1,7 @@
-package repository;
+package racingcar.repository;
 
-import domain.Car;
-import repository.exception.NotDuplicateNameException;
+import racingcar.domain.Car;
+import racingcar.repository.exception.NotDuplicateNameException;
 
 import java.util.ArrayList;
 import java.util.List;
