@@ -3,6 +3,7 @@ package racingcar.repository;
 import racingcar.domain.Car;
 import racingcar.dto.CarNumberDto;
 import racingcar.repository.exception.NotDuplicateNameException;
+import racingcar.ui.Printer;
 import racingcar.util.Discriminator;
 import racingcar.util.RandomGenerator;
 
@@ -50,5 +51,12 @@ public class CarManager {
                 dto.getCar().move();
             }
         }
+    }
+
+    public void printCarState(Printer printer) {
+        for (Car car : cars) {
+            printer.printCarState(car);
+        }
+        printer.printNewLine();
     }
 }
