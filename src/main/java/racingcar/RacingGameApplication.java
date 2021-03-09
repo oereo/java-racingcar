@@ -1,6 +1,7 @@
 package racingcar;
 
 import racingcar.domain.Car;
+import racingcar.domain.exception.NotBlankException;
 import racingcar.dto.CarNumberDto;
 import racingcar.exception.NotZeroRoundException;
 import racingcar.repository.CarManager;
@@ -22,23 +23,36 @@ public class RacingGameApplication {
     public void run() {
         printer.requestCarName();
         String line = receiver.receiveCarNames();
-        List<Car> carList = createAllCars(splitInputLine(line));
-        carManager.addAllCars(carList);
+        try {
+            List<Car> carList = createAllCars(splitInputLine(line));
+            carManager.addAllCars(carList);
 
-        printer.requestNumberOfRounds();
-        int rounds = receiveRounds();
+            printer.requestNumberOfRounds();
+            int rounds = receiveRounds();
+            proceedRound(rounds);
 
+            printer.printWinner(carManager.createWinnerMessage());
+        } catch (NotBlankException e) {
+            printer.printExceptionMessage(e);
+            run();
+        }
+    }
+
+    private void proceedRound(int rounds) {
         printer.printResultHeader();
         for (int i = 0; i < rounds; i++) {
             List<CarNumberDto> carNumberDtos = carManager.generateCarNumberDtos();
             carManager.moveAllCars(carNumberDtos);
             carManager.printCarState(printer);
         }
-        printer.printWinner(carManager.createWinnerMessage());
     }
 
     private List<Car> createAllCars(List<String> carNames) {
         List<Car> carList = new ArrayList<>();
+        if (carNames.size() == 0) {
+            throw new NotBlankException();
+        }
+
         for (String name : carNames) {
             carList.add(new Car(name));
         }
@@ -71,7 +85,6 @@ public class RacingGameApplication {
     private List<String> splitInputLine(String line) {
         return List.of(line.split(DELIMITER));
     }
-
 
     public static void main(String[] args) {
         RacingGameApplication app = new RacingGameApplication();
