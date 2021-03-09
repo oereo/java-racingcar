@@ -1,8 +1,10 @@
 package racingcar.repository;
 
 import racingcar.domain.Car;
+import racingcar.dto.CarNumberDto;
 import racingcar.repository.exception.NotDuplicateNameException;
 import racingcar.util.Discriminator;
+import racingcar.util.RandomGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,18 +26,17 @@ public class CarManager {
         return cars.size();
     }
 
-    public void addAllCars(List<Car> carNames) {
-        for (Car car : carNames) {
+    public void addAllCars(List<Car> cars) {
+        for (Car car : cars) {
             checkDuplicateName(car);
-            cars.add(car);
+            this.cars.add(car);
         }
     }
 
-    public void moveAllCars(List<Integer> randomNumberList) {
-        for (int i = 0; i < randomNumberList.size(); i++) {
-            Integer randomNumber = randomNumberList.get(i);
-            if (Discriminator.isMove(randomNumber)) {
-                cars.get(i).move();
+    public void moveAllCars(List<CarNumberDto> carNumberList) {
+        for (CarNumberDto dto : carNumberList) {
+            if (Discriminator.isMove(dto.getNumber())) {
+                dto.getCar().move();
             }
         }
     }
