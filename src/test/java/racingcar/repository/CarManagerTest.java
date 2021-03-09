@@ -3,6 +3,7 @@ package racingcar.repository;
 import racingcar.domain.Car;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import racingcar.dto.CarNumberDto;
 import racingcar.repository.exception.NotDuplicateNameException;
 
 import java.util.List;
@@ -60,13 +61,37 @@ class CarManagerTest {
         carManager.addAllCars(carList);
 
         //when
-        List<Integer> randomNumberList = List.of(4, 4, 2);
+        List<CarNumberDto> randomNumberList =
+                List.of(new CarNumberDto(oereo, 4),
+                        new CarNumberDto(pkalsh, 4),
+                        new CarNumberDto(kouz95, 2));
+
         carManager.moveAllCars(randomNumberList);
 
         //then
         assertThat(oereo.getPosition()).isEqualTo(1);
         assertThat(pkalsh.getPosition()).isEqualTo(1);
         assertThat(kouz95.getPosition()).isEqualTo(0);
+    }
+
+    @Test
+    void dto에_존재하는_car_객체가_CarManager의_collection에_존재하는_car_객체와_같다() {
+        //given
+        Car oereo = new Car("oereo");
+        Car pkalsh = new Car("pkalsh");
+        Car kouz95 = new Car("kouz95");
+
+        List<Car> carList = List.of(oereo, pkalsh, kouz95);
+        carManager.addAllCars(carList);
+
+        //when
+        List<CarNumberDto> randomNumberList = carManager.generateCarNumberDtos();
+
+        //then
+        for (int i = 0; i < carList.size(); i++) {
+            assertThat(carList.get(i) == randomNumberList.get(i).getCar())
+                    .isTrue();
+        }
     }
 
 }
