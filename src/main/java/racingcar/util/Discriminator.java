@@ -1,4 +1,4 @@
-package racingcar.domain;
+package racingcar.util;
 
 public class Discriminator {
     private static final int THRESHOLD = 4;

@@ -1,6 +1,7 @@
-package racingcar.domain;
+package racingcar.util;
 
 import org.junit.jupiter.api.Test;
+import racingcar.util.Discriminator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
