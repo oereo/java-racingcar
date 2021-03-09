@@ -33,6 +33,17 @@ public class CarManager {
         }
     }
 
+    public List<CarNumberDto> generateCarNumberDtos() {
+        List<CarNumberDto> dtos = new ArrayList<>();
+
+        for (Car car: cars) {
+            int randomNumber = RandomGenerator.generateNumber();
+            dtos.add(new CarNumberDto(car, randomNumber));
+        }
+
+        return dtos;
+    }
+
     public void moveAllCars(List<CarNumberDto> carNumberList) {
         for (CarNumberDto dto : carNumberList) {
             if (Discriminator.isMove(dto.getNumber())) {
