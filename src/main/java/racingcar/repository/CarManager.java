@@ -2,6 +2,9 @@ package racingcar.repository;
 
 import racingcar.domain.Car;
 import racingcar.repository.exception.NotDuplicateNameException;
+import racingcar.ui.Printer;
+import racingcar.utils.Discriminator;
+import racingcar.utils.RandomGenerator;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,21 +16,28 @@ public class CarManager {
         cars = new ArrayList<>();
     }
 
-    public void moveAllCars(List<Boolean> moveFlags) {
-        for (int i = 0; i < moveFlags.size(); i++) {
-            if (moveFlags.get(i)) {
-                cars.get(i).move();
+    public void proceedRound(RandomGenerator randomGenerator, Discriminator discriminator) {
+        for (Car car : cars) {
+            int randomNumber = randomGenerator.generateNumber();
+            if (discriminator.isMove(randomNumber)) {
+                car.move();
             }
         }
     }
 
-    public Iterator<Car> getIterator() {
-        return cars.listIterator();
+    public void printCarState(Printer printer) {
+        for (Car car : cars) {
+            printer.printCarState(car);
+        }
+        printer.printNewLine();
     }
 
-    public void add(Car car) {
-        checkDuplicateName(car);
-        cars.add(car);
+    public void addAllCars(List<String> carNames) {
+        for (String name : carNames) {
+            Car car = new Car(name);
+            checkDuplicateName(car);
+            cars.add(car);
+        }
     }
 
     private void checkDuplicateName(Car car) {
@@ -40,7 +50,21 @@ public class CarManager {
         return cars.size();
     }
 
-    public List<Car> getWinner() {
+    public String createWinnerMessage() {
+        StringBuilder winnerNames = new StringBuilder();
+        List<Car> winners = winnerList();
+        winnerNames.append(winners.get(0).getName());
+
+        for (int i = 1; i < winners.size(); i++) {
+            Car winner = winners.get(i);
+            winnerNames.append(", ");
+            winnerNames.append(winner.getName());
+        }
+
+        return winnerNames.toString();
+    }
+
+    private List<Car> winnerList() {
         int winnerPosition = cars.stream()
                 .mapToInt(Car::getPosition)
                 .max()

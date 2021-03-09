@@ -23,16 +23,7 @@ public class Printer {
         System.out.println(RESULT_HEADER);
     }
 
-    public void printWinner(List<Car> winners) {
-        StringBuilder winnerNames = new StringBuilder();
-        winnerNames.append(winners.get(0).getName());
-
-        for (int i = 1; i < winners.size(); i++) {
-            Car winner = winners.get(i);
-            winnerNames.append(", ");
-            winnerNames.append(winner.getName());
-        }
-
+    public void printWinner(String winnerNames) {
         System.out.println(winnerNames + WINNER_MESSAGE);
     }
 
@@ -48,7 +39,8 @@ public class Printer {
         System.out.println(e.getMessage());
     }
 
-    public void printInputMismatchExceptionMessage() {
+    public void printInputMismatchExceptionMessage(Receiver receiver) {
+        receiver.clearBuffer();
         System.out.println(INPUT_MISMATCH_EXCEPTION_MESSAGE);
     }
 }
