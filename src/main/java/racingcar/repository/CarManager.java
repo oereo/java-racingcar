@@ -13,11 +13,6 @@ public class CarManager {
         cars = new ArrayList<>();
     }
 
-    public void add(Car car) {
-        checkDuplicateName(car);
-        cars.add(car);
-    }
-
     private void checkDuplicateName(Car car) {
         if (cars.contains(car)) {
             throw new NotDuplicateNameException("중복되는 이름의 차를 입력하실 수 없습니다.");
@@ -28,4 +23,10 @@ public class CarManager {
         return cars.size();
     }
 
+    public void addAllCars(List<Car> carNames) {
+        for (Car car : carNames) {
+            checkDuplicateName(car);
+            cars.add(car);
+        }
+    }
 }
