@@ -112,4 +112,24 @@ class CarManagerTest {
         assertThat(winnerMessage).isEqualTo("pkalsh");
     }
 
+    @Test
+    void 승자가_두명이상일_때_그_이름들을_comma로_구분하여_출력한다() {
+        //given
+        Car oereo = new Car("oereo");
+        Car pkalsh = new Car("pkalsh");
+        Car kouz95 = new Car("kouz95");
+
+        List<Car> carList = List.of(oereo, pkalsh, kouz95);
+        oereo.move();
+        pkalsh.move();
+        kouz95.move();
+        carManager.addAllCars(carList);
+
+        //when
+        String winnerMessage = carManager.createWinnerMessage();
+
+        //then
+        assertThat(winnerMessage).isEqualTo("oereo, pkalsh, kouz95");
+    }
+
 }
