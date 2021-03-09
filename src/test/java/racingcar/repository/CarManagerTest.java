@@ -48,4 +48,25 @@ class CarManagerTest {
         assertThatExceptionOfType(NotDuplicateNameException.class)
             .isThrownBy(() -> carManager.addAllCars(carList));
     }
+
+    @Test
+    void 랜덤_숫자_리스트를_넘기면_기준에_따라_플레이어가_이동한다() {
+        //given
+        Car oereo = new Car("oereo");
+        Car pkalsh = new Car("pkalsh");
+        Car kouz95 = new Car("kouz95");
+
+        List<Car> carList = List.of(oereo, pkalsh, kouz95);
+        carManager.addAllCars(carList);
+
+        //when
+        List<Integer> randomNumberList = List.of(4, 4, 2);
+        carManager.moveAllCars(randomNumberList);
+
+        //then
+        assertThat(oereo.getPosition()).isEqualTo(1);
+        assertThat(pkalsh.getPosition()).isEqualTo(1);
+        assertThat(kouz95.getPosition()).isEqualTo(0);
+    }
+
 }
