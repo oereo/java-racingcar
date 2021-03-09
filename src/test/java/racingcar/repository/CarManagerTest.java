@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import racingcar.repository.exception.NotDuplicateNameException;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -21,9 +23,10 @@ class CarManagerTest {
     void Car_객체를_추가한다() {
         //given
         Car car = new Car("oereo");
+        List<Car> carList = List.of(car);
 
         //when
-        carManager.add(car);
+        carManager.addAllCars(carList);
         int expected = carManager.size();
 
         //then
@@ -38,13 +41,11 @@ class CarManagerTest {
         Car kouz95 = new Car("kouz95");
         Car pkalsh2 = new Car("pkalsh");
 
-        //when
-        carManager.add(oereo);
-        carManager.add(pkalsh);
-        carManager.add(kouz95);
+        List<Car> carList = List.of(oereo, pkalsh, kouz95, pkalsh2);
 
+        //when
         //then
         assertThatExceptionOfType(NotDuplicateNameException.class)
-            .isThrownBy(() -> carManager.add(pkalsh2));
+            .isThrownBy(() -> carManager.addAllCars(carList));
     }
 }
