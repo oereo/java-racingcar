@@ -94,4 +94,22 @@ class CarManagerTest {
         }
     }
 
+    @Test
+    void 승자가_한명일_때_그_이름을_출력한다() {
+        //given
+        Car oereo = new Car("oereo");
+        Car pkalsh = new Car("pkalsh");
+        Car kouz95 = new Car("kouz95");
+
+        List<Car> carList = List.of(oereo, pkalsh, kouz95);
+        carManager.addAllCars(carList);
+        pkalsh.move();
+
+        //when
+        String winnerMessage = carManager.createWinnerMessage();
+
+        //then
+        assertThat(winnerMessage).isEqualTo("pkalsh");
+    }
+
 }
