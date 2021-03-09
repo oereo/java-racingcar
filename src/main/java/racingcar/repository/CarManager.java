@@ -9,6 +9,7 @@ import racingcar.util.RandomGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CarManager {
     private List<Car> cars;
@@ -58,5 +59,30 @@ public class CarManager {
             printer.printCarState(car);
         }
         printer.printNewLine();
+    }
+
+    public String createWinnerMessage() {
+        StringBuilder winnerNames = new StringBuilder();
+        List<Car> winners = winnerList();
+        winnerNames.append(winners.get(0).getName());
+
+        for (int i = 1; i < winners.size(); i++) {
+            Car winner = winners.get(i);
+            winnerNames.append(", ");
+            winnerNames.append(winner.getName());
+        }
+
+        return winnerNames.toString();
+    }
+
+    private List<Car> winnerList() {
+        int winnerPosition = cars.stream()
+                .mapToInt(Car::getPosition)
+                .max()
+                .orElseThrow(IllegalArgumentException::new);
+
+        return cars.stream()
+                .filter(car -> car.getPosition() == winnerPosition)
+                .collect(Collectors.toList());
     }
 }
