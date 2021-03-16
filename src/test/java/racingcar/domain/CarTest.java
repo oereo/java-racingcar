@@ -2,6 +2,7 @@ package racingcar.domain;
 
 import racingcar.domain.exception.NotBlankException;
 import org.junit.jupiter.api.Test;
+import racingcar.domain.exception.NotValidNameLengthException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -42,5 +43,12 @@ class CarTest {
         //then
         assertThatExceptionOfType(NotBlankException.class)
                 .isThrownBy(() -> new Car(""));
+    }
+
+    @Test
+    void _5글자_이상의_이름이_주어지면_NotValidNameLengthException을_던진다() {
+        //then
+        assertThatExceptionOfType(NotValidNameLengthException.class)
+                .isThrownBy(()-> new Car("oereo"));
     }
 }
