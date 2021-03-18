@@ -1,6 +1,7 @@
 package racingcar.domain;
 
 import racingcar.domain.exception.NotBlankException;
+import racingcar.domain.exception.NotValidNameLengthException;
 
 import java.util.Objects;
 
@@ -10,12 +11,19 @@ public class Car {
 
     public Car(String name) {
         checkBlankName(name);
+        checkNameLength(name);
         this.name = name;
     }
 
     private void checkBlankName(String name) {
         if (name.equals("")) {
             throw new NotBlankException();
+        }
+    }
+
+    private void checkNameLength(String name) {
+        if (name.length() >= 5) {
+            throw new NotValidNameLengthException();
         }
     }
 
