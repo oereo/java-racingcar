@@ -26,16 +26,16 @@ public class RacingGameApplication {
         try {
             List<Car> carList = createAllCars(splitInputLine(line));
             carManager.addAllCars(carList);
-
+        }catch (NotBlankException e) {
+            printer.printExceptionMessage(e);
+            run();
+        }
             printer.requestNumberOfRounds();
             int rounds = receiveRounds();
             proceedRound(rounds);
 
             printer.printWinner(carManager.createWinnerMessage());
-        } catch (NotBlankException e) {
-            printer.printExceptionMessage(e);
-            run();
-        }
+
     }
 
     private void proceedRound(int rounds) {
@@ -47,7 +47,7 @@ public class RacingGameApplication {
         }
     }
 
-    private List<Car> createAllCars(List<String> carNames) {
+    private List<Car> createAllCars(List<String> carNames) throws NotBlankException{
         List<Car> carList = new ArrayList<>();
         if (carNames.size() == 0) {
             throw new NotBlankException();
