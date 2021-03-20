@@ -1,6 +1,6 @@
 package racingcar;
 
-import racingcar.domain.Car;
+import racingcar.domain.car.Car;
 import racingcar.domain.exception.NotBlankException;
 import racingcar.dto.CarNumberDto;
 import racingcar.exception.NotZeroRoundException;
@@ -48,11 +48,8 @@ public class RacingGameApplication {
         }
     }
 
-    private List<Car> createAllCars(List<String> carNames) throws NotBlankException{
+    private List<Car> createAllCars(List<String> carNames) {
         List<Car> carList = new ArrayList<>();
-        if (carNames.size() == 0) {
-            throw new NotBlankException();
-        }
 
         for (String name : carNames) {
             carList.add(new Car(name));
