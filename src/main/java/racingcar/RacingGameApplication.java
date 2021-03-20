@@ -9,6 +9,7 @@ import racingcar.ui.Printer;
 import racingcar.ui.Receiver;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 
@@ -83,7 +84,7 @@ public class RacingGameApplication {
     }
 
     private List<String> splitInputLine(String line) {
-        return List.of(line.split(DELIMITER));
+        return Arrays.asList(line.split(DELIMITER));
     }
 
     public static void main(String[] args) {
