@@ -1,32 +1,17 @@
-package racingcar.domain;
-
-import racingcar.domain.exception.NotBlankException;
-import racingcar.domain.exception.NotValidNameLengthException;
+package racingcar.domain.car;
 
 import java.util.Objects;
 
 public class Car {
     private final String name;
     private int position = 0;
-    private static final int CAR_NAME_MAX_LENGTH = 4;
     private static final int MOVE_INTERVAL = 1;
 
+    private CarName carName;
+
     public Car(String name) {
-        checkBlankName(name);
-        checkNameLength(name);
+        this.carName = new CarName(name);
         this.name = name;
-    }
-
-    private void checkBlankName(String name) {
-        if (name.isBlank()) {
-            throw new NotBlankException();
-        }
-    }
-
-    private void checkNameLength(String name) {
-        if (name.length() > CAR_NAME_MAX_LENGTH) {
-            throw new NotValidNameLengthException();
-        }
     }
 
     public String getName() {
