@@ -1,6 +1,6 @@
 package racingcar.repository;
 
-import racingcar.domain.Car;
+import racingcar.domain.car.Car;
 import racingcar.dto.CarNumberDto;
 import racingcar.repository.exception.NotDuplicateNameException;
 import racingcar.ui.Printer;
@@ -82,7 +82,7 @@ public class CarManager {
                 .orElseThrow(IllegalArgumentException::new);
 
         return cars.stream()
-                .filter(car -> car.getPosition() == winnerPosition)
+                .filter(car -> car.isWinnerPosition(winnerPosition))
                 .collect(Collectors.toList());
     }
 }
