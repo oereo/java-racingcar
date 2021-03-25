@@ -2,10 +2,9 @@ package racingcar.repository;
 
 import racingcar.domain.car.Car;
 import racingcar.dto.CarNumberDto;
+import racingcar.repository.Strategy.ForwardMoveStrategy;
 import racingcar.repository.exception.NotDuplicateNameException;
 import racingcar.ui.Printer;
-import racingcar.util.Discriminator;
-import racingcar.util.RandomGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class CarManager {
     private List<Car> cars;
+    private final ForwardMoveStrategy forwardMoveStrategy = new ForwardMoveStrategy();
 
     public CarManager() {
         cars = new ArrayList<>();
@@ -39,8 +39,7 @@ public class CarManager {
         List<CarNumberDto> dtos = new ArrayList<>();
 
         for (Car car: cars) {
-            int randomNumber = RandomGenerator.generateNumber();
-            dtos.add(new CarNumberDto(car, randomNumber));
+            dtos.add(new CarNumberDto(car));
         }
 
         return dtos;
@@ -48,9 +47,7 @@ public class CarManager {
 
     public void moveAllCars(List<CarNumberDto> carNumberList) {
         for (CarNumberDto dto : carNumberList) {
-            if (Discriminator.isMove(dto.getNumber())) {
-                dto.getCar().move();
-            }
+            forwardMoveStrategy.forwardDeciding(dto.getCar());
         }
     }
 

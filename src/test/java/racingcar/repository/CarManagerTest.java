@@ -1,6 +1,6 @@
 package racingcar.repository;
 
-import racingcar.domain.Car;
+import racingcar.domain.car.Car;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import racingcar.dto.CarNumberDto;
@@ -62,9 +62,9 @@ class CarManagerTest {
 
         //when
         List<CarNumberDto> randomNumberList =
-                List.of(new CarNumberDto(oereo, 4),
-                        new CarNumberDto(pkalsh, 4),
-                        new CarNumberDto(kouz95, 2));
+                List.of(new CarNumberDto(oereo),
+                        new CarNumberDto(pkalsh),
+                        new CarNumberDto(kouz95));
 
         carManager.moveAllCars(randomNumberList);
 
