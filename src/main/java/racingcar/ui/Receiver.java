@@ -1,6 +1,7 @@
 package racingcar.ui;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,7 +15,16 @@ public class Receiver {
     }
 
     public int receiveNumberOfRounds() {
-        return scanner.nextInt();
+        Printer printer = new Printer();
+        int numberOfRounds = 0;
+        try{
+            numberOfRounds = scanner.nextInt();
+        }catch (InputMismatchException e) {
+            printer.printInputMismatchExceptionMessage();
+        } catch (IllegalArgumentException e) {
+            printer.printExceptionMessage(e);
+        }
+        return numberOfRounds;
     }
 
     public void clearBuffer() {
