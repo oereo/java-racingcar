@@ -6,17 +6,14 @@ import racingcar.domain.exception.NotBlankException;
 import racingcar.dto.CarNumberDto;
 import racingcar.exception.NotZeroRoundException;
 import racingcar.repository.CarManager;
+import racingcar.repository.exception.NotDuplicateNameException;
 import racingcar.ui.Printer;
 import racingcar.ui.Receiver;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
 import java.util.List;
 
 public class RacingGameApplication {
-    private static final int INPUT_ZERO = 0;
-    private static final String DELIMITER = ",";
 
     private final Printer printer = new Printer();
     private final Receiver receiver = new Receiver();
@@ -24,19 +21,18 @@ public class RacingGameApplication {
 
     public void run() {
         printer.requestCarName();
-        String line = receiver.receiveCarNames();
         try {
-            List<Car> carList = createAllCars(splitInputLine(line));
+            List<Car> carList = createAllCars(receiver.receiveCarNames());
             carManager.addAllCars(carList);
         }catch (NotBlankException e) {
             printer.printExceptionMessage(e);
-            run();
+        }catch (NotDuplicateNameException e){
+            printer.printExceptionMessage(e);
         }
-            printer.requestNumberOfRounds();
-            Round rounds = new Round(receiveRounds());
-            proceedRound(rounds);
+        printer.requestNumberOfRounds();
+        receiveRounds();
 
-            printer.printWinner(carManager.createWinnerMessage());
+        printer.printWinner(carManager.createWinnerMessage());
 
     }
 
@@ -58,31 +54,13 @@ public class RacingGameApplication {
         return carList;
     }
 
-    private int receiveRounds() {
-        int rounds = 0;
-        boolean isInvalidInput = true;
-        while (isInvalidInput) {
-            try {
-                rounds = receiver.receiveNumberOfRounds();
-                throwExceptionIfInputIsZero(rounds);
-                isInvalidInput = false;
-            } catch (InputMismatchException e) {
-                printer.printInputMismatchExceptionMessage(receiver);
-            } catch (IllegalArgumentException e) {
-                printer.printExceptionMessage(e);
-            }
+    private void receiveRounds() {
+        try{
+            Round rounds = new Round(receiver.receiveNumberOfRounds());
+            proceedRound(rounds);
+        }catch(NotZeroRoundException e) {
+            printer.printExceptionMessage(e);
         }
-        return rounds;
-    }
-
-    private void throwExceptionIfInputIsZero(int rounds) {
-        if (rounds == INPUT_ZERO) {
-            throw new NotZeroRoundException();
-        }
-    }
-
-    private List<String> splitInputLine(String line) {
-        return Arrays.asList(line.split(DELIMITER));
     }
 
     public static void main(String[] args) {
