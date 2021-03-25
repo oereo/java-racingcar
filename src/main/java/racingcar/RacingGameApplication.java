@@ -1,5 +1,6 @@
 package racingcar;
 
+import racingcar.domain.Round;
 import racingcar.domain.car.Car;
 import racingcar.domain.exception.NotBlankException;
 import racingcar.dto.CarNumberDto;
@@ -32,16 +33,16 @@ public class RacingGameApplication {
             run();
         }
             printer.requestNumberOfRounds();
-            int rounds = receiveRounds();
+            Round rounds = new Round(receiveRounds());
             proceedRound(rounds);
 
             printer.printWinner(carManager.createWinnerMessage());
 
     }
 
-    private void proceedRound(int rounds) {
+    private void proceedRound(Round rounds) {
         printer.printResultHeader();
-        for (int i = 0; i < rounds; i++) {
+        for (int i = 0; i < rounds.getRounds(); i++) {
             List<CarNumberDto> carNumberDtos = carManager.generateCarNumberDtos();
             carManager.moveAllCars(carNumberDtos);
             carManager.printCarState(printer);
