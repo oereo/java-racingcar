@@ -13,18 +13,17 @@ import java.util.List;
 public class RacingGameApplication {
 
     private final Printer printer = new Printer();
-    private final Receiver receiver = new Receiver();
     private final CarManager carManager = new CarManager();
-    private final CarManagerValidator carNameValidator = new CarManagerValidator();
+    private final CarManagerValidator carManagerValidator = new CarManagerValidator();
     public void run() {
         printer.requestCarName();
-        List<Car> carList = carNameValidator.getValidateCarNames();
-        carManager.addAllCars(carList);
+        carManagerValidator.ValidateAddCars(carManager);
+
         printer.requestNumberOfRounds();
         Round rounds = receiveRounds();
         proceedRound(rounds);
-        printer.printWinner(carManager.createWinnerMessage());
 
+        printer.printWinner(carManager.createWinnerMessage());
     }
 
     private void proceedRound(Round rounds) {
