@@ -4,11 +4,11 @@ import racingcar.domain.Round;
 import racingcar.domain.car.Car;
 import racingcar.domain.exception.NotBlankException;
 import racingcar.dto.CarNumberDto;
-import racingcar.exception.NotZeroRoundException;
 import racingcar.repository.CarManager;
 import racingcar.repository.exception.NotDuplicateNameException;
 import racingcar.ui.Printer;
 import racingcar.ui.Receiver;
+import racingcar.ui.validator.ReceiverValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +30,8 @@ public class RacingGameApplication {
             printer.printExceptionMessage(e);
         }
         printer.requestNumberOfRounds();
-        receiveRounds();
-
+        Round rounds = receiveRounds();
+        proceedRound(rounds);
         printer.printWinner(carManager.createWinnerMessage());
 
     }
@@ -54,13 +54,9 @@ public class RacingGameApplication {
         return carList;
     }
 
-    private void receiveRounds() {
-        try{
-            Round rounds = new Round(receiver.receiveNumberOfRounds());
-            proceedRound(rounds);
-        }catch(NotZeroRoundException e) {
-            printer.printExceptionMessage(e);
-        }
+    private Round receiveRounds() {
+        Round roundObject = new Round();
+        return roundObject;
     }
 
     public static void main(String[] args) {
