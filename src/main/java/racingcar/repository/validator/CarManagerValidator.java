@@ -8,7 +8,6 @@ import racingcar.repository.exception.NotDuplicateNameException;
 import racingcar.ui.Printer;
 import racingcar.ui.Receiver;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CarManagerValidator {

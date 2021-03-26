@@ -1,12 +1,10 @@
 package racingcar;
 
 import racingcar.domain.Round;
-import racingcar.domain.car.Car;
 import racingcar.repository.validator.CarManagerValidator;
 import racingcar.dto.CarDto;
 import racingcar.repository.CarManager;
 import racingcar.ui.Printer;
-import racingcar.ui.Receiver;
 
 import java.util.List;
 

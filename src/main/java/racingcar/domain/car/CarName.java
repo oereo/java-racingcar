@@ -5,7 +5,7 @@ import racingcar.domain.exception.NotValidNameLengthException;
 
 public class CarName {
     private static final int CAR_NAME_MAX_LENGTH = 4;
-    private String name;
+    private final String name;
 
     public CarName(String name) {
         checkBlankName(name);

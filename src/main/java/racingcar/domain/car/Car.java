@@ -7,10 +7,8 @@ public class Car {
     private int position = 0;
     private static final int MOVE_INTERVAL = 1;
 
-    private CarName carName;
-
     public Car(String name) {
-        this.carName = new CarName(name);
+        CarName carName = new CarName(name);
         this.name = name;
     }
 
