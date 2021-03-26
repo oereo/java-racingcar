@@ -7,7 +7,7 @@ public class Round {
     private final ReceiverValidator receiverValidator = new ReceiverValidator();
 
     public Round() {
-        int round = receiverValidator.getvalidateReceiveNumberOfRounds();
+        int round = receiverValidator.getValidateReceiveNumberOfRounds();
         this.rounds = round;
     }
 
