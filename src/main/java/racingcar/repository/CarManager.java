@@ -1,5 +1,6 @@
 package racingcar.repository;
 
+import racingcar.domain.Winner;
 import racingcar.domain.car.Car;
 import racingcar.dto.CarDto;
 import racingcar.repository.Strategy.ForwardMoveStrategy;
@@ -68,17 +69,10 @@ public class CarManager {
     }
 
     public String createWinnerMessage() {
-        StringBuilder winnerNames = new StringBuilder();
         List<Car> winners = winnerList();
-        winnerNames.append(winners.get(0).getName());
+        Winner winner = new Winner(winners);
 
-        for (int i = 1; i < winners.size(); i++) {
-            Car winner = winners.get(i);
-            winnerNames.append(", ");
-            winnerNames.append(winner.getName());
-        }
-
-        return winnerNames.toString();
+        return winner.getWinnerGroups();
     }
 
     private List<Car> winnerList() {
