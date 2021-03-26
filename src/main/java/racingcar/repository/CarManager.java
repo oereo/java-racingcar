@@ -1,7 +1,7 @@
 package racingcar.repository;
 
 import racingcar.domain.car.Car;
-import racingcar.dto.CarNumberDto;
+import racingcar.dto.CarDto;
 import racingcar.repository.Strategy.ForwardMoveStrategy;
 import racingcar.repository.exception.NotDuplicateNameException;
 import racingcar.ui.Printer;
@@ -28,25 +28,34 @@ public class CarManager {
         return cars.size();
     }
 
-    public void addAllCars(List<Car> cars) {
-        for (Car car : cars) {
+    public void addAllCars(List<Car> carGroups) {
+        cars = new ArrayList<>();
+        for (Car car : carGroups) {
             checkDuplicateName(car);
             this.cars.add(car);
         }
     }
 
-    public List<CarNumberDto> generateCarNumberDtos() {
-        List<CarNumberDto> dtos = new ArrayList<>();
+    public List<Car> createAllCars(List<String> carNames) {
+        List<Car> carGroups = new ArrayList<>();
 
+        for (String name : carNames) {
+            carGroups.add(new Car(name));
+        }
+        return carGroups;
+    }
+
+    public List<CarDto> generateCarDtos() {
+        List<CarDto> dtos = new ArrayList<>();
         for (Car car: cars) {
-            dtos.add(new CarNumberDto(car));
+            dtos.add(new CarDto(car));
         }
 
         return dtos;
     }
 
-    public void moveAllCars(List<CarNumberDto> carNumberList) {
-        for (CarNumberDto dto : carNumberList) {
+    public void moveAllCars(List<CarDto> carNumberList) {
+        for (CarDto dto : carNumberList) {
             forwardMoveStrategy.forwardDeciding(dto.getCar());
         }
     }
