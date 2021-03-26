@@ -1,13 +1,28 @@
 package racingcar.domain;
 
+import org.junit.jupiter.api.BeforeEach;
+import racingcar.domain.car.Car;
 import racingcar.domain.exception.NotBlankException;
 import org.junit.jupiter.api.Test;
 import racingcar.domain.exception.NotValidNameLengthException;
+import racingcar.repository.CarManager;
+import racingcar.repository.exception.NotDuplicateNameException;
+import racingcar.repository.validator.CarManagerValidator;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class CarTest {
+    private CarManager carManager;
+    private CarManagerValidator carManagerValidator;
+
+    @BeforeEach
+    void setup() {
+        carManager = new CarManager();
+        carManagerValidator = new CarManagerValidator();
+    }
 
     @Test
     void move() {
